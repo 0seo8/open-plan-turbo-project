@@ -2,6 +2,9 @@
 
 랜덤 사진을 조회하고 표시하는 모노레포 기반의 Next.js 애플리케이션입니다.
 
+🔗 **데모:** [https://open-plan-turbo-project-web.vercel.app/](https://open-plan-turbo-project-web.vercel.app/)
+
+
 ## 주요 기능 ✨
 
 - 🖼️ 랜덤 사진 조회 및 표시
@@ -104,7 +107,7 @@ pnpm storybook  # 스토리북 실행
 9. [x] 사진 조회 api는 "https://picsum.photos/id/0/info" 을 이용해주세요.
 10. [x] 사진 조회 api 통신 후 response를 "/result" 페이지에 전달하는 방식으로 만들어주세요.
 11. [x] github에 Public으로 해당 프로젝트를 올려주세요.
-12. [ ] web 워크스페이스를 vercel을 사용해서 배포해주세요.
+12. [x] web 워크스페이스를 vercel을 사용해서 배포해주세요.
 13. [ ] Github url과 배포 Url을 메일로 회신해주세요.
 
 ### 추가사항
