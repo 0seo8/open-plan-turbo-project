@@ -1,7 +1,21 @@
-import { Button } from '@repo/ui/components/button';
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Button } from '@repo/ui/components/button';
+import { useImageStore } from '@/app/_store/image';
 
 export default function Home() {
+  const router = useRouter();
+  const hasViewedImage = useImageStore(state => state.hasViewedImage);
+
+  useEffect(() => {
+    if (hasViewedImage) {
+      router.push('/result');
+    }
+  }, [hasViewedImage, router]);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-white">
       <div className="flex flex-col gap-2 items-center text-2xl font-semibold justify-center flex-grow text-center">
@@ -10,7 +24,7 @@ export default function Home() {
       </div>
 
       <div className="mb-10 w-full max-w-md sm:max-w-xs">
-        <Link href="/result" className="w-full">
+        <Link href="/result?route=normal" className="w-full">
           <Button size="default" className="w-full">
             다음
           </Button>

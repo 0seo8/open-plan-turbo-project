@@ -15,6 +15,9 @@
       ],
       "@api/*": [
         "./app/api/*"
+      ],
+      "@store/*": [
+        "./app/store/*"
       ]
     },
     "target": "ES2017",

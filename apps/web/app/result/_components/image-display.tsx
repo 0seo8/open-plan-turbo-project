@@ -6,7 +6,7 @@ import { Button } from '@repo/ui/components/button';
 import { Card, CardRow, CardItem } from '@repo/ui/components/card';
 
 export type ImageData = {
-  id: number;
+  id: number | string;
   author: string;
   width: number;
   height: number;
