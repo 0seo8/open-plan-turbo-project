@@ -12,6 +12,9 @@
       ],
       "@components/*": [
         "./app/components/*"
+      ],
+      "@api/*": [
+        "./app/api/*"
       ]
     },
     "target": "ES2017",

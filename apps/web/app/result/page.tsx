@@ -1,19 +1,33 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { Button } from '@repo/ui/components/button';
-import { Card } from '@repo/ui/components/card';
-import { CardRow } from '@repo/ui/components/card';
-import { CardItem } from '@repo/ui/components/card';
+import { ImageDisplay } from '@components/image-display';
+import { headers } from 'next/headers';
 
-export default function ResultPage() {
-  const imageData = {
-    id: 0,
-    author: 'Alejandro Escamilla',
-    width: 5000,
-    height: 3333,
-    url: 'https://unsplash.com/photos/yC-Yzbqy7PY',
-    download_url: 'https://picsum.photos/id/0/5000/3333',
-  };
+type ImageData = {
+  id: number;
+  author: string;
+  width: number;
+  height: number;
+  url: string;
+  download_url: string;
+};
+
+async function getImageData(): Promise<ImageData> {
+  const headersList = await headers();
+  const host = headersList.get('host');
+  const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+
+  const response = await fetch(`${protocol}://${host}/api/photo`, {
+    next: { revalidate: 60 * 60 }, // 1시간마다 재검증
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch image data');
+  }
+
+  return response.json();
+}
+
+export default async function ResultPage() {
+  const imageData = await getImageData();
 
   return (
     <div className="min-h-screen relative pt-16">
@@ -36,83 +50,9 @@ export default function ResultPage() {
             'linear-gradient(to bottom, rgba(211, 211, 211, 0.1) 0%, rgba(211, 211, 211, 0.7) 50%, rgba(169, 169, 169, 0.95) 100%)',
         }}
       />
+
       <div className="relative z-1 flex flex-col items-center justify-center px-4 w-full min-h-screen lg:container lg:mx-auto">
-        <div className="w-full flex flex-col md:flex-row md:items-center md:justify-center md:gap-12 lg:gap-16">
-          <div className="w-full max-w-xl mx-auto mb-6 md:w-5/12 md:mb-0">
-            <div className="rounded-2xl overflow-hidden shadow-lg relative aspect-[5000/3333]">
-              <Image
-                src={imageData.download_url}
-                alt={`Photo by ${imageData.author}`}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-                priority
-                quality={90}
-              />
-            </div>
-          </div>
-
-          <div className="w-full md:w-5/12">
-            <div className="space-y-4 w-full">
-              <Card>
-                <CardRow className="flex-col md:flex-row gap-2">
-                  <div className="flex-1">
-                    <CardItem label="id" value={imageData.id} />
-                  </div>
-                  <div className="flex-1">
-                    <CardItem label="author" value={imageData.author} />
-                  </div>
-                </CardRow>
-              </Card>
-
-              <Card>
-                <CardRow className="flex-col md:flex-row gap-2">
-                  <div className="flex-1">
-                    <CardItem
-                      label="width"
-                      value={imageData.width.toLocaleString()}
-                      className="text-xl"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <CardItem
-                      label="height"
-                      value={imageData.height.toLocaleString()}
-                      className="text-xl"
-                    />
-                  </div>
-                </CardRow>
-              </Card>
-
-              <Card>
-                <CardItem
-                  label="url"
-                  value={imageData.url}
-                  isLink
-                  href={imageData.url}
-                  mb={false}
-                />
-                <div className="mt-3">
-                  <CardItem
-                    label="download_url"
-                    value={imageData.download_url}
-                    isLink
-                    href={imageData.download_url}
-                    mb={false}
-                  />
-                </div>
-              </Card>
-
-              <div className="mt-6 flex justify-center">
-                <Link href="/">
-                  <Button size="sm" className="w-40">
-                    이전
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ImageDisplay imageData={imageData} />
       </div>
     </div>
   );
