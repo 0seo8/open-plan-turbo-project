@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@repo/ui/components/button';
 import { Card, CardRow, CardItem } from '@repo/ui/components/card';
+import { useRouter } from 'next/navigation';
 
 export type ImageData = {
   id: number | string;
@@ -19,6 +19,7 @@ interface ImageDisplayProps {
 }
 
 export function ImageDisplay({ imageData }: ImageDisplayProps) {
+  const router = useRouter();
   return (
     <div className="w-full flex flex-col md:flex-row md:items-center md:justify-center md:gap-12 lg:gap-16">
       <div className="w-full max-w-xl mx-auto mb-6 md:w-5/12 md:mb-0">
@@ -81,11 +82,15 @@ export function ImageDisplay({ imageData }: ImageDisplayProps) {
           </Card>
 
           <div className="mt-6 flex justify-center">
-            <Link href="/">
-              <Button size="sm" className="w-40">
-                이전
-              </Button>
-            </Link>
+            <Button
+              size="sm"
+              className="w-40"
+              onClick={() => {
+                router.push('/');
+              }}
+            >
+              이전
+            </Button>
           </div>
         </div>
       </div>

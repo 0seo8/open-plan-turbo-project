@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { Button } from '@repo/ui/components/button';
 import { useImageStore } from '@/app/_store/image';
 
@@ -24,11 +23,13 @@ export default function Home() {
       </div>
 
       <div className="mb-10 w-full max-w-md sm:max-w-xs">
-        <Link href="/result?route=normal" className="w-full">
-          <Button size="default" className="w-full">
-            다음
-          </Button>
-        </Link>
+        <Button
+          size="default"
+          className="w-full"
+          onClick={() => router.push('/result?route=normal')}
+        >
+          다음
+        </Button>
       </div>
     </div>
   );
