@@ -1,102 +1,154 @@
-import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { Card } from "@repo/ui/components/card";
+import { Card, CardItem, CardLabel, CardRow, CardValue } from '@repo/ui/components/card';
+import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Card> = {
+  title: 'UI/Card',
   component: Card,
-  title: "Components/Card",
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: { type: "radio" },
-      options: ["default", "rounded"],
-      description: "카드 모서리 둥글기 (default: 0.5rem, rounded: 1rem)",
+      options: ['default', 'rounded'],
+      control: { type: 'radio' },
     },
   },
-};
+} satisfies Meta<typeof Card>;
 
 export default meta;
-
 type Story = StoryObj<typeof Card>;
 
 export const DefaultCard: Story = {
-  render: (props) => (
-    <Card {...props}>
-      <h3 className="text-lg font-medium">카드 제목</h3>
-      <p className="mt-2 text-gray-600">
-        카드 내용입니다. 다양한 정보를 표시할 수 있습니다.
-      </p>
-    </Card>
-  ),
-  name: "기본 카드 (Default)",
   args: {
-    variant: "default",
-    style: {
-      maxWidth: "400px",
-    },
+    children: (
+      <div>
+        <CardLabel>카드 제목</CardLabel>
+        <CardValue>카드 내용을 여기에 작성합니다.</CardValue>
+      </div>
+    ),
   },
+  render: args => (
+    <div style={{ maxWidth: '400px' }}>
+      <Card {...args} />
+    </div>
+  ),
 };
 
 export const RoundedCard: Story = {
-  render: (props) => (
-    <Card {...props}>
-      <h3 className="text-lg font-medium">둥근 카드 제목</h3>
-      <p className="mt-2 text-gray-600">더 둥근 모서리를 가진 카드입니다.</p>
-    </Card>
-  ),
-  name: "둥근 카드 (Rounded)",
   args: {
-    variant: "rounded",
-    style: {
-      maxWidth: "400px",
-    },
-  },
-};
-
-export const MetadataCard: Story = {
-  render: (props) => (
-    <Card {...props}>
-      <div className="space-y-4">
-        <div>
-          <p className="text-gray-500 text-sm font-medium">id</p>
-          <p className="font-medium">0</p>
-        </div>
-        <div>
-          <p className="text-gray-500 text-sm font-medium">author</p>
-          <p className="font-medium">Alejandro Escamilla</p>
-        </div>
-      </div>
-    </Card>
-  ),
-  name: "메타데이터 카드",
-  args: {
-    variant: "rounded",
-    style: {
-      maxWidth: "400px",
-    },
-  },
-};
-
-export const LinkCard: Story = {
-  render: (props) => (
-    <Card {...props}>
+    variant: 'rounded',
+    children: (
       <div>
-        <p className="text-gray-500 text-sm font-medium mb-1">url</p>
-        <a
-          href="https://example.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline break-all text-sm"
-        >
-          https://example.com
-        </a>
+        <CardLabel>라운드 카드</CardLabel>
+        <CardValue>더 둥근 모서리를 가진 카드입니다.</CardValue>
       </div>
-    </Card>
-  ),
-  name: "링크 카드",
-  args: {
-    variant: "rounded",
-    style: {
-      maxWidth: "400px",
-    },
+    ),
   },
+  render: args => (
+    <div style={{ maxWidth: '400px' }}>
+      <Card {...args} />
+    </div>
+  ),
+};
+
+export const CardWithRow: Story = {
+  args: {
+    children: (
+      <CardRow>
+        <div>
+          <CardLabel>왼쪽 항목</CardLabel>
+          <CardValue>왼쪽 값</CardValue>
+        </div>
+        <div>
+          <CardLabel>오른쪽 항목</CardLabel>
+          <CardValue>오른쪽 값</CardValue>
+        </div>
+      </CardRow>
+    ),
+  },
+  render: args => (
+    <div style={{ maxWidth: '400px' }}>
+      <Card {...args} />
+    </div>
+  ),
+};
+
+export const CardWithItems: Story = {
+  args: {
+    children: (
+      <CardRow>
+        <CardItem label="아이디" value="12345" />
+        <CardItem label="이름" value="홍길동" />
+      </CardRow>
+    ),
+  },
+  render: args => (
+    <div style={{ maxWidth: '400px' }}>
+      <Card {...args} />
+    </div>
+  ),
+};
+
+export const CardWithLinks: Story = {
+  args: {
+    children: (
+      <div>
+        <CardItem
+          label="웹사이트"
+          value="https://example.com"
+          isLink
+          href="https://example.com"
+          mb={false}
+        />
+        <div className="mt-3">
+          <CardItem
+            label="문서"
+            value="https://docs.example.com"
+            isLink
+            href="https://docs.example.com"
+            mb={false}
+          />
+        </div>
+      </div>
+    ),
+  },
+  render: args => (
+    <div style={{ maxWidth: '400px' }}>
+      <Card {...args} />
+    </div>
+  ),
+};
+
+export const CompleteMetadataCard: Story = {
+  args: {
+    children: (
+      <div>
+        <CardRow>
+          <CardItem label="ID" value="12345" />
+          <CardItem label="작성자" value="홍길동" />
+        </CardRow>
+        <div className="mt-3">
+          <CardRow>
+            <CardItem label="너비" value="1920" />
+            <CardItem label="높이" value="1080" />
+          </CardRow>
+        </div>
+        <div className="mt-3">
+          <CardItem
+            label="URL"
+            value="https://example.com/image.jpg"
+            isLink
+            href="https://example.com/image.jpg"
+            mb={false}
+          />
+        </div>
+      </div>
+    ),
+  },
+  render: args => (
+    <div style={{ maxWidth: '400px' }}>
+      <Card {...args} />
+    </div>
+  ),
 };
