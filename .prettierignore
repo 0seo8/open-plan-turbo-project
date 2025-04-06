@@ -1,0 +1,15 @@
+.next
+node_modules
+yarn.lock
+package-lock.json
+public
+build
+dist
+.vercel
+.github
+pnpm-lock.yaml
+coverage
+storybook-static
+.turbo
+out
+.storybook-static
