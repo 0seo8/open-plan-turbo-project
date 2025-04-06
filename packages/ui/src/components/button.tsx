@@ -5,23 +5,21 @@ import { ReactNode, CSSProperties, MouseEventHandler } from 'react';
 interface ButtonProps {
   children: ReactNode;
   className?: string;
-  appName: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   type?: 'button' | 'submit' | 'reset';
   style?: CSSProperties;
-  size?: 'default' | 'small';
-  state?: 'default' | 'disabled';
+  size?: 'default' | 'sm';
+  disabled?: boolean;
 }
 
 export const Button = ({
   children,
   className,
-  appName,
   onClick,
   type = 'button',
   style,
   size = 'default',
-  state = 'default',
+  disabled = false,
 }: ButtonProps) => {
   const baseStyle: CSSProperties = {
     backgroundColor: '#111111',
@@ -37,25 +35,26 @@ export const Button = ({
     justifyContent: 'center',
   };
 
-  const sizeStyle: CSSProperties = size === 'default' ? { width: '20.9375rem' } : { width: '9.625rem' };
+  const sizeStyle: CSSProperties = size === 'default' ? { width: '100%' } : { width: '9.625rem' };
 
-  const stateStyle: CSSProperties =
-    state === 'disabled' ? { cursor: 'not-allowed', opacity: 0.8 } : { cursor: 'pointer', opacity: 1 };
+  const disabledStyle: CSSProperties = disabled
+    ? { cursor: 'not-allowed', opacity: 0.8 }
+    : { cursor: 'pointer', opacity: 1 };
 
   const combinedStyle = {
     ...baseStyle,
     ...sizeStyle,
-    ...stateStyle,
+    ...disabledStyle,
     ...style,
   };
 
   return (
     <button
       className={className}
-      onClick={onClick || (() => alert(`Hello from your ${appName} app!`))}
+      onClick={onClick}
       type={type}
       style={combinedStyle}
-      disabled={state === 'disabled'}
+      disabled={disabled}
     >
       {children}
     </button>
