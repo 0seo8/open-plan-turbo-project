@@ -13,7 +13,7 @@ export default function ResultPage() {
   };
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative pt-16">
       <div
         className="fixed inset-0 w-screen h-screen bg-[#FAFAFA]"
         style={{
