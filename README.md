@@ -1,84 +1,125 @@
-# Turborepo starter
+# 사진 조회 앱 📸
 
-This Turborepo starter is maintained by the Turborepo core team.
+랜덤 사진을 조회하고 표시하는 모노레포 기반의 Next.js 애플리케이션입니다.
 
-## Using this example
+## 주요 기능 ✨
 
-Run the following command:
+- 🖼️ 랜덤 사진 조회 및 표시
+- 🔄 새로고침 시에도 데이터 유지 (localStorage)
+- 📱 반응형 디자인 지원 (모바일, 태블릿, PC)
+- ⚡ 디바운스 처리된 API 호출 (500ms)
+- 🎨 스켈레톤 UI와 로딩 애니메이션
+- 🔍 자동 페이지 리다이렉션
+- 🌫️ 결과 페이지 배경 블러 효과
 
-```sh
-npx create-turbo@latest
-```
+## 기술 스택 🛠️
 
-## What's inside?
+- **프레임워크:** Next.js 13 (App Router)
+- **스타일링:** TailwindCSS
+- **상태관리:** Zustand + localStorage
+- **모노레포:** Turborepo + pnpm
+- **컴포넌트 문서화:** Storybook
+- **코드 품질:** ESLint, Prettier
+- **배포:** Vercel
 
-This Turborepo includes the following packages/apps:
+## 환경 설정 ⚙️
 
-### Apps and Packages
+### 개발 환경
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- Node.js >= 18
+- pnpm 9.0.0
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## 시작하기 🚀
 
-### Utilities
+### 설치 방법
 
-This Turborepo has some additional tools already setup for you:
+```bash
+# 저장소 클론
+git clone [your-repository-url]
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+# 디렉토리 이동
+cd [your-repository-name]
 
-### Build
+# 패키지 설치
+pnpm install
 
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
+# 개발 서버 실행
 pnpm dev
 ```
 
-### Remote Caching
+### 스크립트
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```bash
+pnpm dev        # 개발 서버 실행
+pnpm build      # 프로덕션 빌드
+pnpm lint       # 린트 검사
+pnpm storybook  # 스토리북 실행
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## 프로젝트 구조 📁
 
 ```
-npx turbo link
+├── apps
+│   ├── web                # Next.js 웹 애플리케이션
+│   │   ├── app           # App Router 페이지들
+│   │   │   ├── page.tsx          # 메인 페이지 (/)
+│   │   │   ├── result           # 결과 페이지 (/result)
+│   │   │   └── not-found.tsx    # 404 페이지
+│   │   ├── components    # 웹 전용 컴포넌트
+│   │   └── store         # Zustand 스토어
+│   └── storybook         # 스토리북 설정 및 스토리
+├── packages
+│   └── ui                # 공통 UI 컴포넌트
+│       └── button        # 재사용 가능한 버튼 컴포넌트
+└── package.json
 ```
 
-## Useful Links
+## 주요 페이지 🎯
 
-Learn more about the power of Turborepo:
+### 메인 페이지 (/)
 
-- [Tasks](https://turbo.build/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/docs/reference/command-line-reference)
+- "다음" 버튼을 통한 사진 조회
+- 디바운스 처리된 API 호출
+- 로딩 상태 애니메이션
+
+### 결과 페이지 (/result)
+
+- 조회된 사진 표시 (5000x3333)
+- 메타데이터 정보 (ID, 작성자, 크기 등)
+- 배경 블러 효과
+- 스켈레톤 로딩 UI
+
+## 구현된 기능 ✅
+
+### 필수사항
+
+1. [x] 터보레포를 설치해 주세요. (패키지 매니저는 pnpm)
+2. [x] 터보레포의 워크스페이스 2개의 워크스페이스를 만들어주세요. (web, storybook)
+3. [x] web 워크스페이스의 작업은 첨부한 피그마를 참고해서 만들어주세요.
+4. [x] 터보레포 ui 패키지에 버튼을 만들어 주세요.
+5. [x] 생성한 버튼의 스토리북을 만들어주세요. (상태별)
+6. [x] 생성한 버튼을 web에 import해서 사용해주세요.
+7. [x] Css 작성은 자유롭게 해주셔도 됩니다. (Ex. Css module, tailwind….)
+8. [x] 사진 조회 전 route : ".../", 조회 후 : "/result"
+9. [x] 사진 조회 api는 "https://picsum.photos/id/0/info" 을 이용해주세요.
+10. [x] 사진 조회 api 통신 후 response를 "/result" 페이지에 전달하는 방식으로 만들어주세요.
+11. [x] github에 Public으로 해당 프로젝트를 올려주세요.
+12. [ ] web 워크스페이스를 vercel을 사용해서 배포해주세요.
+13. [ ] Github url과 배포 Url을 메일로 회신해주세요.
+
+### 추가사항
+
+**아래 사항들은 필수가 아니며 여건에 따라 진행해주세요**
+
+1. [ ] ~~api 데이터 상태 관리는 tanstack-query를 사용해주세요.~~
+2. [x] 사진 조회 데이터는 전역상태 라이브러리를 사용해서 관리해주세요. (Zustand 요망)
+3. [x] 새로 고침 시에도 데이터가 유지되게 해주세요.
+4. [x] 사진 조회 버튼 클릭 액션에 디바운스 혹은 스로틀링을 걸어주세요.
+5. [x] 버튼 디바운스/ 스로틀링 시 로딩 애니메이션을 넣어주세요. (애니메이션 방식은 자유. Ex. Lottie, css…. )
+6. [x] 사진을 한번이라도 조회한 이력이 있을 시 "/result" 페이지로 자동으로 이동하게 해주세요.
+7. [x] 사진 조회페이지의 정보 영역에 스켈레톤 처리를 해주세요.
+8. [x] 사진을 조회한 이력없이 "/result"로 이동하는 경우, 1초 뒤 메인 페이지로 이동시켜주세요.
+9. [x] 사진 조회 페이지의 배경은 조회한 사진을 이용해서 만들어주세요.
+10. [x] 404페이지를 만들고 존재하지 않는 route에 접근 시 노출시켜 주세요.
+11. [x] Read me를 작성해주세요.
+12. [x] Eslint, Prettier를 사용해서 코드관리를 해주세요.
