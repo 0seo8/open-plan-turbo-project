@@ -108,7 +108,7 @@ pnpm storybook  # 스토리북 실행
 10. [x] 사진 조회 api 통신 후 response를 "/result" 페이지에 전달하는 방식으로 만들어주세요.
 11. [x] github에 Public으로 해당 프로젝트를 올려주세요.
 12. [x] web 워크스페이스를 vercel을 사용해서 배포해주세요.
-13. [ ] Github url과 배포 Url을 메일로 회신해주세요.
+13. [x] Github url과 배포 Url을 메일로 회신해주세요.
 
 ### 추가사항
 
